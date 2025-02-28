@@ -1,0 +1,68 @@
+spring:
+  application:
+    name: EnergyLogic
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      maximum-pool-size: 10
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgrespw
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.reactive.dialect.PostgreSQLReactiveDialect
+        format_sql: true
+    show-sql: true
+  main:
+    allow-bean-definition-overriding: true
+  management:
+    endpoints:
+      web:
+        exposure:
+          include: health, metrics, prometheus
+    metrics:
+      tags:
+        application: ${spring.application.name}
+  messages:
+    basename: messages
+
+springdoc:
+  api-docs:
+    path: api-docs
+  show-login-endpoint: true
+  swagger-ui:
+    operationsSorter: method
+    tagsSorter: aphla
+    path: swagger-ui.html
+
+logging:
+  level:
+    org:
+      springframework:
+        web: DEBUG
+      apache:
+        http: DEBUG
+      hibernate:
+        SQL: DEBUG
+        type: TRACE
+
+security:
+  jwt:
+    secret-key: 3cfa76ef14937c1c0ea519f8fc057a80fcd04a7420f8e8bcd0a7567c272e007b
+    expiration-time: 3600000
+
+server:
+  address: 0.0.0.0
+  http2:
+    enabled: true
+  port: 8080
+
+
+
